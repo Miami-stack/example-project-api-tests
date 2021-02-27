@@ -42,19 +42,3 @@ class Client:
     def get_booking(self, uid: int):
         return self.s.get(self.url + f"/booking/{uid}")
 
-    # def validate_json(self, data):
-    #     schema_json = Schema({"bookingid": int, "booking": {
-    #             "firstname": str,
-    #             "lastname": str,
-    #             "totalprice": int,
-    #             "depositpaid": bool,
-    #             "bookingdates": {
-    #                 "checkin": str,
-    #                 "checkout": str,
-    #             },
-    #             "additionalneeds": str
-    #         }})
-    #
-    #     if schema_json.validate(data):
-    #         return True
-    #     raise Exception("Невалидный JSON")
