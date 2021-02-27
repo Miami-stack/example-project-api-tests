@@ -1,5 +1,5 @@
 from model.booking import BookingData
-
+from common.schema.schema import ClassSchema
 import pytest
 
 
@@ -11,7 +11,7 @@ class TestCreateBooking:
         data = BookingData().random()
         res = client.create_booking(data)
         assert res.status_code == 200
-        # assert client.validate_json(res.json())
+        assert ClassSchema.validate_json_post(res.json())
         booking_info = res.json()
         assert booking_info.get('booking') == data
 

@@ -1,8 +1,7 @@
 import logging
 
 import requests
-from schema import Schema, And, Use, Optional, SchemaError
-import datetime
+from schema import Schema, And
 
 
 from model.booking import BookingData
@@ -43,19 +42,19 @@ class Client:
     def get_booking(self, uid: int):
         return self.s.get(self.url + f"/booking/{uid}")
 
-    def validate_json(self, data):
-        today = datetime.date.today()
-        schema_json = Schema([{
-            "firstname": And(str),
-            "lastname": And(str),
-            "totalprice": And(int, lambda n: 1 <= n <= 100000000000000),
-            "depositpaid": And(bool),
-            "bookingdates": {
-                "checkin": And(datetime.datetime, lambda n: n >= today),
-                "checkout": And(datetime.datetime, lambda n: n >= today)
-            },
-            "additionalneeds": And(str)
-        }])
-        if schema_json.validate(data):
-            return True
-        raise Exception("Невалидный JSON")
+    # def validate_json(self, data):
+    #     schema_json = Schema({"bookingid": int, "booking": {
+    #             "firstname": str,
+    #             "lastname": str,
+    #             "totalprice": int,
+    #             "depositpaid": bool,
+    #             "bookingdates": {
+    #                 "checkin": str,
+    #                 "checkout": str,
+    #             },
+    #             "additionalneeds": str
+    #         }})
+    #
+    #     if schema_json.validate(data):
+    #         return True
+    #     raise Exception("Невалидный JSON")
