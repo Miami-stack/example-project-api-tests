@@ -1,7 +1,7 @@
 import pytest
 
 from api.client import Client
-from model.booking import BookingData
+from model.booking import BookingData, BookingDataAttr, AddBookingResponse
 from model.login import UserData
 
 
@@ -43,6 +43,6 @@ def create_booking(client):
     Create new booking with random data
     :return: response dict
     """
-    data = BookingData().random()
-    res = client.create_booking(data)
+    data = BookingDataAttr().random()
+    res = client.create_booking(data, type_response=AddBookingResponse)
     return res.json()

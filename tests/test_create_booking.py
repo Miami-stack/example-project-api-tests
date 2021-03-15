@@ -1,5 +1,4 @@
-from model.booking import BookingData
-from common.schema.schema import ClassSchema
+from model.booking import BookingData, BookingDataAttr, AddBookingResponse
 import pytest
 
 
@@ -8,12 +7,10 @@ class TestCreateBooking:
         """
         Отправка запроса 'create_booking' с валидными данными
         """
-        data = BookingData().random()
-        res = client.create_booking(data)
+        data = BookingDataAttr.random()
+        res = client.create_booking(data, type_response=AddBookingResponse)
         assert res.status_code == 200
-        assert ClassSchema.validate_json_post(res.json())
-        booking_info = res.json()
-        assert booking_info.get('booking') == data
+        assert res.get('booking') == AddBookingResponse, "Невалидные данные"
 
     @pytest.mark.skip(reason="Ошибка в апи")
     @pytest.mark.parametrize("field, value", [
